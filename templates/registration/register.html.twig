@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}E-com - Register{% endblock %}
+
+{% block body %}
+    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.password, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.lastname) }}
+        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(registrationForm.phone) }}
+    {{ form_end(registrationForm) }}
+{% endblock %}
