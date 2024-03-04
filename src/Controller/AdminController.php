@@ -12,7 +12,7 @@ class AdminController extends AbstractController
     public function index(): Response
     {
        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
+       
         // $test = true;
         // if($test === true){
         //     throw $this->createAccessDeniedException('Vous n\'avez pas accès à cette page');
