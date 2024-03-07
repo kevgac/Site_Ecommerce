@@ -3,16 +3,32 @@
 {% block title %}E-com - Register{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1 class="h3 mb-3 font-weight-normal">Register</h1>
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.password, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.lastname) }}
-        {{ form_row(registrationForm.firstname) }}
-        {{ form_row(registrationForm.phone) }}
+        <div class="mb-3">
+            <label for="inputEmail" class="form-label">Email</label>
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            <label for="inputLastName" class="form-label">Last Name</label>
+            {{ form_widget(registrationForm.lastname, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            <label for="inputFirstName" class="form-label">First Name</label>
+            {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="mb-3">
+            <label for="inputPhone" class="form-label">Phone</label>
+            {{ form_widget(registrationForm.phone, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
     {{ form_end(registrationForm) }}
+</div>
 {% endblock %}

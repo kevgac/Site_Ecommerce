@@ -3,26 +3,23 @@
 {% block title %}E-com - HomePage{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1 style="text-align:center;">
-        Welcome to our E-commerce website<br>
-        HomePage
-    </h1>
-    <p>
-        <a href="{{ path('app_login') }}">LogIn</a>
-    </p>
-    <p>
-        <a href="{{ path('app_logout') }}">LogOut</a>
-    </p>
-    <p>
-        <a href="{{ path('app_register') }}">Register</a>
-    </p>
-    
-    
+<div class="container">
+    <h1 class="text-center mt-5">Welcome to our E-commerce website</h1>
+    <h2 class="text-center mb-5">HomePage</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <img src="path_to_your_product_image.jpg" class="img-fluid" alt="Product Image">
+        </div>
+        <div class="col-md-8">
+            <h3>Product Name</h3>
+            <p>Description du produit Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <p><strong>$19.99</strong></p>
+            <button class="btn btn-primary">Ajouter au panier</button>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

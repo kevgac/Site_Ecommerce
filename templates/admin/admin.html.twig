@@ -1,20 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Admin - Dashboard{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello Administrateur ✅</h1>
+<div class="container">
+    <h1 class="mt-5">Dashboard Administrateur</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/templates/admin/admin.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
+    <div class="card mt-4">
+        <div class="card-header">
+            Ajouter un Produit
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="productName" class="form-label">Nom du Produit</label>
+                    <input type="text" class="form-control" id="productName" placeholder="Nom du Produit">
+                </div>
+                <div class="mb-3">
+                    <label for="productPrice" class="form-label">Prix du Produit</label>
+                    <input type="text" class="form-control" id="productPrice" placeholder="Prix du Produit">
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            Modifier un Produit
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Produit 1</td>
+                        <td>$10</td>
+                        <td><button class="btn btn-sm btn-warning">Modifier</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Produit 2</td>
+                        <td>$20</td>
+                        <td><button class="btn btn-sm btn-warning">Modifier</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 {% endblock %}
