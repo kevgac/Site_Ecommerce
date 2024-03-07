@@ -7,28 +7,10 @@
 <div class="container">
     <h1 class="mt-5">Dashboard Administrateur</h1>
 
+    <!-- Section pour afficher la liste des utilisateurs -->
     <div class="card mt-4">
         <div class="card-header">
-            Ajouter un Produit
-        </div>
-        <div class="card-body">
-            <form>
-                <div class="mb-3">
-                    <label for="productName" class="form-label">Nom du Produit</label>
-                    <input type="text" class="form-control" id="productName" placeholder="Nom du Produit">
-                </div>
-                <div class="mb-3">
-                    <label for="productPrice" class="form-label">Prix du Produit</label>
-                    <input type="text" class="form-control" id="productPrice" placeholder="Prix du Produit">
-                </div>
-                <button type="submit" class="btn btn-primary">Ajouter</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="card mt-4">
-        <div class="card-header">
-            Modifier un Produit
+            Utilisateurs
         </div>
         <div class="card-body">
             <table class="table">
@@ -36,23 +18,21 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nom</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Téléphone</th>
+                        <th scope="col">Date de création</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for user in users %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Produit 1</td>
-                        <td>$10</td>
-                        <td><button class="btn btn-sm btn-warning">Modifier</button></td>
+                        <th scope="row">{{ user.id }}</th>
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.createdDate|date('Y-m-d H:i:s') }}</td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Produit 2</td>
-                        <td>$20</td>
-                        <td><button class="btn btn-sm btn-warning">Modifier</button></td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
