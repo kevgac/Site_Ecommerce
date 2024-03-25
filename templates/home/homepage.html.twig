@@ -8,17 +8,52 @@
     <h1 class="text-center mt-5">Welcome to our E-commerce website</h1>
     <h2 class="text-center mb-5">HomePage</h2>
 
+    <h3 class="pt-5">Voitures Essences</h3>
     <div class="row">
+        {% for i in 0..2 %}  {# for product in products   + créer un controller produit et mettre ca $products = $productRepository->findAll()        return $this->render('produits/index.html.twig', [
+            'products' => $products,
+        ]);
+        #}
         <div class="col-md-4">
-            <img src="path_to_your_product_image.jpg" class="img-fluid" alt="Product Image">
+            <div class="border p-3 mb-4">
+                <img src="path_to_your_product_image_{{ i }}.jpg" class="img-fluid" alt="Product Image">
+                {# <h4>{{ product.name }} {{ i }}</h4> #}
+                <p>Description du produit Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p><strong>$19.99</strong></p>
+                <button class="btn btn-primary">Ajouter au panier</button>
+            </div>
         </div>
-        <div class="col-md-8">
-            <h3>Product Name</h3>
-            <p>Description du produit Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        {% endfor %}
+    </div>
 
-            <p><strong>$19.99</strong></p>
-            <button class="btn btn-primary">Ajouter au panier</button>
+    <h3 class="pt-5">Voitures Diesels</h3>
+    <div class="row">
+        {% for i in 0..2 %}
+        <div class="col-md-4">
+            <div class="border p-3 mb-4">
+                <img src="path_to_your_product_image_{{ i }}.jpg" class="img-fluid" alt="Product Image">
+                <h4>Product Name {{ i }}</h4>
+                <p>Description du produit Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p><strong>$19.99</strong></p>
+                <button class="btn btn-primary">Ajouter au panier</button>
+            </div>
         </div>
+        {% endfor %}
+    </div>
+
+    <h3 class="pt-5">Voitures Electriques</h3>
+    <div class="row">
+        {% for i in 0..2 %}
+        <div class="col-md-4">
+            <div class="border p-3 mb-4">
+                <img src="path_to_your_product_image_{{ i }}.jpg" class="img-fluid" alt="Product Image">
+                <h4>Product Name {{ i }}</h4>
+                <p>Description du produit Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p><strong>$19.99</strong></p>
+                <button class="btn btn-primary">Ajouter au panier</button>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 

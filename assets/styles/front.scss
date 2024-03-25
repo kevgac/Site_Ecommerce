@@ -1,2 +1,34 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap"; 
+
+.page-content{
+    min-height: calc(100vh);
+}
+
+
+#footer{
+    background-color: #F9F9F9;
+}
+.footer{
+    &-logo{
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+    }
+    &-border_right{
+        border-right: 2px solid #000000;
+    }
+}
+// .logo{
+//     width: 100%;
+//     max-width: 250px;
+//     height: auto;
+// }
+
+// .border_right{
+//     border-right: 2px solid #000000;
+// }
+
+.fs-12{
+    font-size: 12px;
+}
