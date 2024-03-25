@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ecom - Panier{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-5">Panier</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            {% if products is empty %}
+                <p>Votre panier est vide.</p>
+            {% else %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Produit</th>
+                            <th scope="col">Prix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.priceHT }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="text-end">
+                    {# <a href="{{ path('checkout') }}" class="btn btn-primary">Passer la commande</a> #}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

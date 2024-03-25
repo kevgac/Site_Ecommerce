@@ -1,0 +1,60 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Ecom - Mon compte{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1 class="mt-5">Mon Compte</h1>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h2>Mes Informations</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">Email: {{ user.email }}</p>
+                    <p class="card-text">Nom: {{ user.lastname }}</p>
+                    <p class="card-text">Prénom: {{ user.firstname }}</p>
+                    user.id }}</td>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Modifier les Informations</h2>
+            <div class="card">
+                <div class="card-body">
+                    <!-- Formulaire de modification des informations -->
+                    <form action="{{ path('app_account_update') }}" method="post">
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.lastname) }}
+                        {{ form_row(form.firstname) }}
+                        {{ form_row(form.phone) }}
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} #}
+
+
+{% extends app.user and 'ROLE_ADMIN' in app.user.roles ? 'base-admin.html.twig' : 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Mon Compte</h2>
+    <div class="card">
+        <div class="card-body">
+            {# <h5 class="card-title">{{ app.user.firstname }} {{ app.user.lastname }}</h5>
+            <p class="card-text">
+                <strong>Email:</strong> {{ app.user.email }}<br>
+                <strong>Phone:</strong> {{ app.user.phone }}<br>
+                <strong>Role(s):</strong> {{ app.user.roles|join(', ') }}<br>
+                <strong>Verified:</strong> {{ app.user.isVerified ? 'Yes' : 'No' }}<br>
+                <strong>Created Date:</strong> {{ app.user.createdDate ? app.user.createdDate|date('Y-m-d H:i:s') : 'N/A' }}
+            </p> #}
+        </div>
+    </div>
+</div>
+{% endblock %}
