@@ -2,11 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\File;
 use App\Entity\User;
+use App\Repository\CartRepository;
+use App\Service\ImageManager;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\FileType;
 
 class AdminController extends AbstractController
 {
@@ -19,6 +24,31 @@ class AdminController extends AbstractController
 
         return $this->render('admin/admin.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    #[Route('/admin/upload', name: 'app_admin_upload')]
+    public function upload(Request $request, ImageManager $imageManager): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $file = new File();
+
+        $form = $this -> createForm(FileType::class, $file);
+        $form -> handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $uploadFile = $form->get('file')->getData();
+            $fileName = $imageManager->upload($uploadFile, $file->isPublic());
+            
+            $file->setPath($fileName);
+            $file->setType('image');
+            $file->setCreatedOn  (new \DateTimeImmutable());
+        }
+       
+        return $this->render('admin/upload.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

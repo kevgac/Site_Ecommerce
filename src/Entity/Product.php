@@ -24,6 +24,9 @@ class Product
     #[ORM\Column]
     private ?string $img = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $deleteDate = null;
+
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?Category $category = null;
 
@@ -79,6 +82,18 @@ class Product
     public function setImg(?string $img): static
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    public function getDeleteDate(): ?\DateTimeInterface
+    {
+        return $this->deleteDate;
+    }
+
+    public function setDeleteDate(\DateTimeInterface $deleteDate): static
+    {
+        $this->deleteDate = $deleteDate;
 
         return $this;
     }

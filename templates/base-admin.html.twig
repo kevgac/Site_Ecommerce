@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="{{ asset('pictures/favicon.png') }}">
     {# <link rel="stylesheet" href="/css/global.css"> #}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app_style') }}
@@ -11,14 +12,12 @@
     {% endblock stylesheets %}
 </head>
 <body>
-    {% include 'navbar-admin.html.twig' %}
-    
-
-    <div class="container page-content">
-        {% block body %}{% endblock %}
+    <div class="d-flex">
+        {% include 'navbar-admin.html.twig' %}
+        <div class="container page-content flex-grow-1">
+            {% block body %}{% endblock %}
+        </div>
     </div>
-
-    {% include 'footer.html.twig' %}
 
 </body>
 </html>

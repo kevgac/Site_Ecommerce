@@ -46,14 +46,14 @@
     <h2>Mon Compte</h2>
     <div class="card">
         <div class="card-body">
-            {# <h5 class="card-title">{{ app.user.firstname }} {{ app.user.lastname }}</h5>
+            <h5 class="card-title">{{ app.user.firstname }} {{ app.user.lastname }}</h5>
             <p class="card-text">
                 <strong>Email:</strong> {{ app.user.email }}<br>
                 <strong>Phone:</strong> {{ app.user.phone }}<br>
                 <strong>Role(s):</strong> {{ app.user.roles|join(', ') }}<br>
                 <strong>Verified:</strong> {{ app.user.isVerified ? 'Yes' : 'No' }}<br>
                 <strong>Created Date:</strong> {{ app.user.createdDate ? app.user.createdDate|date('Y-m-d H:i:s') : 'N/A' }}
-            </p> #}
+            </p>
         </div>
     </div>
 </div>

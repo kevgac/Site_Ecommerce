@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $deleteDate = null;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserAddress::class)]
     private Collection $userAddresses;
 
@@ -136,6 +139,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getDeleteDate(): ?\DateTimeInterface
+    {
+        return $this->deleteDate;
+    }
+
+    public function setDeleteDate(\DateTimeInterface $deleteDate): static
+    {
+        $this->deleteDate = $deleteDate;
 
         return $this;
     }
