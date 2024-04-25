@@ -39,6 +39,13 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductCart::class)]
     private Collection $productCarts;
 
+    #[ORM\OneToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?File $image = null;
+
+    #[ORM\Column]
+    private ?bool $public;
+
     public function __construct()
     {
         $this->commandLines = new ArrayCollection();
@@ -86,6 +93,18 @@ class Product
         return $this;
     }
 
+    public function getImage(): ?File 
+    {
+        return $this->image;
+    }
+
+    public function setImage(?File $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
     public function getDeleteDate(): ?\DateTimeInterface
     {
         return $this->deleteDate;
@@ -118,6 +137,18 @@ class Product
     public function setTaxes(?Taxes $taxes): static
     {
         $this->taxes = $taxes;
+
+        return $this;
+    }
+
+    public function getPublic(): ?bool
+    {
+        return $this->public;
+    }
+
+    public function setPublic(bool $public): self
+    {
+        $this->public = $public;
 
         return $this;
     }

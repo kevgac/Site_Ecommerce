@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\FileType;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Entity;
 
 class AdminController extends AbstractController
 {
@@ -28,7 +30,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/upload', name: 'app_admin_upload')]
-    public function upload(Request $request, ImageManager $imageManager): Response
+    public function upload(Request $request, ImageManager $imageManager, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -45,6 +47,9 @@ class AdminController extends AbstractController
             $file->setPath($fileName);
             $file->setType('image');
             $file->setCreatedOn  (new \DateTimeImmutable());
+
+            $em->persist($file);
+            $em->flush();
         }
        
         return $this->render('admin/upload.html.twig', [
@@ -52,13 +57,29 @@ class AdminController extends AbstractController
         ]);
     }
 
-    // #[Route('/admin/users', name: 'app_admin_users')]
-    // public function index2(EntityManagerInterface $entityManager): Response
-    // {
-    //     $users = $entityManager->getRepository(User::class)->findAll();
-       
-    //     return $this->render('admin/admin-user.html.twig', [
-    //         'users' => $users,
-    //     ]);
-    // }
+
+
+    #[Route('/admin/download', name: 'app_admin_download')]
+    public function download(EntityManagerInterface $em): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $images = $em->getRepository(File::class)->findAll();
+
+        return $this->render('admin/download.html.twig', [
+            'images' => $images
+        ]);
+        
+    }
+
+    #[Route('/image/stream/{id}', name: 'app_image_stream')]
+    public function imageStream(int $id, ImageManager $imageManager, EntityManagerInterface $em):Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
+        $image = $em->getRepository(File::class)->find($id);
+        $path = $image->getPath();
+
+        return $imageManager->stream($path);
+    }
 }

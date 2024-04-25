@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Exception;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 Class ImageManager
@@ -35,7 +36,7 @@ Class ImageManager
     public function upload(UploadedFile $file, bool $public = false) : string
     {
         $fileName = null;
-        dd($this->getDirectory($public));
+        //dd($this->getBaseName($file->getClientOriginalName()));
 
         if(file_exists($this->getDirectory($public)) === false)
         {
@@ -45,7 +46,11 @@ Class ImageManager
         $count = 0;
         while($count < 10 && ($fileName === null || file_exists($this->getDirectory($public).'/'.$fileName)))
         {
-            $fileName = md5($file->getBasename()).'_'.uniqid('',true).'.'.$file->guessExtension();
+            $fileName = md5($file->getClientOriginalName()).
+            '_'.
+            str_replace('.','-',uniqid('',true)).
+            '.'.
+            $file->guessExtension();
             $count++;
         }
 
@@ -56,5 +61,11 @@ Class ImageManager
         $file->move($this->getDirectory($public), $fileName);
 
         return $fileName;
+    }
+
+    public function stream(string $path):BinaryFileResponse
+    {
+        $response = new BinaryFileResponse($this->getDirectory(false).'/'.$path);
+        return $response;
     }
 }

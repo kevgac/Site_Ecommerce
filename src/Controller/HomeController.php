@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
@@ -10,6 +11,7 @@ use App\Form\InscriptionType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Service\ImageManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +37,5 @@ class HomeController extends AbstractController
             return $this->render('home/home.html.twig'); // Rediriger vers le tableau de bord utilisateur
         }
     }
-
     
 }

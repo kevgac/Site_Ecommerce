@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\File;
 use App\Entity\Product;
+use App\Form\FileType;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Service\ImageManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,13 +26,35 @@ class ProductController extends AbstractController
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ImageManager $imageManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
+        
+        $file = new File();
+        
         $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $formData = $form->getData();     
+            $uploadFile = $form->get('file')->getData();     
+            $public = $formData->getPublic(); 
+        
+            $fileName = $imageManager->upload($uploadFile, 1);
+            $file->setPath($fileName);
+            $file->setType('image');
+            $file->setCreatedOn(new \DateTimeImmutable());
+            $file->setPublic($public);
+            //$file->setPublic(true);  //Pour supprimer dans ProductType le champs pulic
+            $file->setName($uploadFile->getClientOriginalName());
+            $file->setCreatedOn(new \DateTimeImmutable());
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            $product->setImage($file);
+
+            $entityManager->persist($file);
             $entityManager->persist($product);
             $entityManager->flush();
 
@@ -38,7 +63,7 @@ class ProductController extends AbstractController
 
         return $this->render('product/new.html.twig', [
             'product' => $product,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

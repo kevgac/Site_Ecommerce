@@ -23,7 +23,7 @@ class File
     #[ORM\Column]
     private ?\DateTimeImmutable $createdOn = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deleteOn = null;
 
     #[ORM\Column(length: 255)]
@@ -32,6 +32,10 @@ class File
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    #[ORM\OneToOne(mappedBy: 'image')]
+    private ?Product $product = null;
+    
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +109,18 @@ class File
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getProduct(): ?string
+    {
+        return $this->product;
+    }
+
+    public function setProduct(string $product): static
+    {
+        $this->product = $product;
 
         return $this;
     }
