@@ -20,6 +20,10 @@ class Category
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
+    
+    #[ORM\OneToOne(targetEntity: File::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?File $image = null;
 
     public function __construct()
     {
@@ -39,6 +43,18 @@ class Category
     public function setNamename(string $namename): static
     {
         $this->namename = $namename;
+
+        return $this;
+    }
+
+    public function getImage(): ?File 
+    {
+        return $this->image;
+    }
+
+    public function setImage(?File $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

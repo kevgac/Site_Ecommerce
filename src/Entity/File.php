@@ -34,6 +34,9 @@ class File
 
     #[ORM\OneToOne(mappedBy: 'image')]
     private ?Product $product = null;
+
+    #[ORM\ManyToOne(inversedBy: 'image')]
+    private ?Category $category = null;
     
     
     public function getId(): ?int
@@ -121,6 +124,18 @@ class File
     public function setProduct(string $product): static
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

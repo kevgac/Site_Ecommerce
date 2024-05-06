@@ -103,4 +103,12 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/product/{id}/detail', name: 'app_product_show_detail', methods: ['GET'])]
+    public function showDetail(Product $product): Response
+    {
+        return $this->render('product/show_detail.html.twig', [
+            'product' => $product,
+        ]);
+    }
 }

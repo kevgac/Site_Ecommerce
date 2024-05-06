@@ -19,23 +19,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, ImageManager $imageManager): Response
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, ImageManager $imageManager, EntityManagerInterface $em): Response
     {
         $targerDirectory = $imageManager->getTargetDirectory();
         $categories = $categoryRepository->findAll();
         $products = $productRepository->findAll();
+        $images = $em->getRepository(File::class)->findAll();
        
         return $this->render('home/homepage.html.twig', [
             'products' => $products,
             'controller_name' => 'HomeController',
             'categories' => $categories,
-            'target_directory' => $targerDirectory  
+            'target_directory' => $targerDirectory,
+            'images' => $images
         ]);
         if ($this->isGranted('ROLE_ADMIN')) {
             return $this->render('admin/admin.html.twig'); 
         } else {
-            return $this->render('home/home.html.twig'); // Rediriger vers le tableau de bord utilisateur
+            return $this->render('home/homepage.html.twig');
         }
     }
-    
 }
