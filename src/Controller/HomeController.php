@@ -21,22 +21,23 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository, ImageManager $imageManager, EntityManagerInterface $em): Response
     {
-        $targerDirectory = $imageManager->getTargetDirectory();
+        $targetDirectory = $imageManager->getTargetDirectory(); 
         $categories = $categoryRepository->findAll();
         $products = $productRepository->findAll();
         $images = $em->getRepository(File::class)->findAll();
-       
-        return $this->render('home/homepage.html.twig', [
+        
+        $templateData = [
             'products' => $products,
             'controller_name' => 'HomeController',
             'categories' => $categories,
-            'target_directory' => $targerDirectory,
+            'target_directory' => $targetDirectory,
             'images' => $images
-        ]);
+        ];
+        
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->render('admin/admin.html.twig'); 
+            return $this->render('admin/admin.html.twig', $templateData); 
         } else {
-            return $this->render('home/homepage.html.twig');
+            return $this->render('home/homepage.html.twig', $templateData);
         }
     }
 }

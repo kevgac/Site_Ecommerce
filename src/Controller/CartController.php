@@ -98,32 +98,37 @@ class CartController extends AbstractController
         ]);
     }
 
-    // #[Route('/{id}/edit', name: 'app_cart_edit', methods: ['GET', 'POST'])]
-    // public function edit(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
-    // {
-    //     $form = $this->createForm(Cart1Type::class, $cart);
-    //     $form->handleRequest($request);
+    #[Route('/{id}/edit', name: 'app_cart_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(Cart1Type::class, $cart);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
 
-    //         return $this->redirectToRoute('app_cart_index', [], Response::HTTP_SEE_OTHER);
-    //     }
+            return $this->redirectToRoute('app_cart_index', [], Response::HTTP_SEE_OTHER);
+        }
 
-    //     return $this->render('cart/edit.html.twig', [
-    //         'cart' => $cart,
-    //         'form' => $form,
-    //     ]);
-    // }
+        return $this->render('cart/edit.html.twig', [
+            'cart' => $cart,
+            'form' => $form,
+        ]);
+    }
 
     #[Route('/{id}', name: 'app_cart_delete', methods: ['POST'])]
     public function delete(Request $request, Cart $cart, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cart->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $cart->getId(), $request->request->get('_token'))) {
+            foreach ($cart->getProductCarts() as $productCart) {
+                $entityManager->remove($productCart);
+            }
+
             $entityManager->remove($cart);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_cart_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

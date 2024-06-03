@@ -72,6 +72,7 @@
                                     <p class="card-text">Prix: {{ product.priceHT }}€</p>
                                     <a href="{{ path('app_product_show_detail', {'id': product.id}) }}" class="btn btn-outline-primary">Voir le produit</a>
                                 </div>
+                                <a class="btn btn-primary add-to-cart" id="product-{{product.id}}">Ajouter au panier</a>
                             </div>
                         </div>
                     {% endfor %}
